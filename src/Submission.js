@@ -22,7 +22,10 @@ export const Submission = (props) => {
 
         let res = await cloudAPI.put('/account', JSON.stringify(body))
         if(res.status !== 200 || res.data.state !== 200) message.error("出错了，请检查参数！")
-        else message.success("提交成功！")
+        else {
+            message.success("提交成功！")
+            form.resetFields()
+        }
     }
 
     return  <Card title={"录入账户信息"} className={"card"} style={{width: "100%"}} >
@@ -31,13 +34,14 @@ export const Submission = (props) => {
             wrapperCol= {{span: 18}}
             form={form}
             onFinish={onFinish}
+            disabled
         >
             <Form.Item
                 label="账户"
                 name="accountName"
                 rules={[{ required: true, message: '请输入账户名' }]}
             >
-                <Input/>
+                <Input disabled/>
             </Form.Item>
             {/*<Form.Item*/}
             {/*    label="密码"*/}
@@ -51,7 +55,7 @@ export const Submission = (props) => {
                 name="secret"
                 rules={[{ required: true, message: '请输入二步验证密钥' }]}
             >
-                <Input/>
+                <Input disabled/>
             </Form.Item>
             {/*<Form.Item*/}
             {/*    label="邮箱密码"*/}
@@ -61,7 +65,7 @@ export const Submission = (props) => {
             {/*    <Input/>*/}
             {/*</Form.Item>*/}
             <Form.Item wrapperCol= {{offset: 5} }>
-                <Button type="primary" htmlType="submit">
+                <Button type="primary" htmlType="submit" disabled>
                     提交
                 </Button>
             </Form.Item>
